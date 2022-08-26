@@ -13,7 +13,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Link, Route, Routes } from "react-router-dom";
+import { HashRouter, Link, Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 import SelectionSort from "../pages/SelectionSort";
 import MergeSort from "../pages/MergeSort";
@@ -83,14 +83,16 @@ export default function ClippedDrawer() {
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
-				<Routes>
-					<Route path="/" element={<Dashboard />} />
-					<Route path="/selection-sort" element={<SelectionSort />} />
-					<Route path="/merge-sort" element={<MergeSort />} />
-					<Route path="/heap-sort" element={<HeapSort />} />
-					<Route path="/bubble-sort" element={<BubbleSort />} />
-					<Route path="/*" element={<h1>404 not found</h1>} />
-				</Routes>
+				<HashRouter>
+					<Routes>
+						<Route path="/" element={<Dashboard />} />
+						<Route path="/selection-sort" element={<SelectionSort />} />
+						<Route path="/merge-sort" element={<MergeSort />} />
+						<Route path="/heap-sort" element={<HeapSort />} />
+						<Route path="/bubble-sort" element={<BubbleSort />} />
+						<Route path="/*" element={<h1>404 not found</h1>} />
+					</Routes>
+				</HashRouter>
 			</Box>
 		</Box>
 	);
