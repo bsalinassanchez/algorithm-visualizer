@@ -45,7 +45,7 @@ export default function ClippedDrawer() {
 					<List>
 						{["Dashboard"].map((text, index) => (
 							<ListItem key={text} disablePadding>
-								<ListItemButton component={Link} to="/">
+								<ListItemButton component={Link} to="/algorithm-visualizer">
 									<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 									<ListItemText primary={text} />
 								</ListItemButton>
