@@ -45,7 +45,7 @@ export default function ClippedDrawer() {
 					<List>
 						{["Dashboard"].map((text, index) => (
 							<ListItem key={text} disablePadding>
-								<ListItemButton component={Link} to="/algorithm-visualizer/">
+								<ListItemButton component={Link} to="/">
 									<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 									<ListItemText primary={text} />
 								</ListItemButton>
@@ -55,25 +55,25 @@ export default function ClippedDrawer() {
 					<Divider />
 					<List>
 						<ListItem key="Selection Sort" disablePadding>
-							<ListItemButton component={Link} to="/algorithm-visualizer/selection-sort">
+							<ListItemButton component={Link} to="/selection-sort">
 								<ListItemIcon>{<InboxIcon />}</ListItemIcon>
 								<ListItemText primary="Selection Sort" />
 							</ListItemButton>
 						</ListItem>
 						<ListItem key="Merge Sort" disablePadding>
-							<ListItemButton component={Link} to="/algorithm-visualizer/merge-sort">
+							<ListItemButton component={Link} to="/merge-sort">
 								<ListItemIcon>{<InboxIcon />}</ListItemIcon>
 								<ListItemText primary="Merge Sort" />
 							</ListItemButton>
 						</ListItem>
 						<ListItem key="Heap Sort" disablePadding>
-							<ListItemButton component={Link} to="/algorithm-visualizer/heap-sort">
+							<ListItemButton component={Link} to="/heap-sort">
 								<ListItemIcon>{<InboxIcon />}</ListItemIcon>
 								<ListItemText primary="Heap Sort" />
 							</ListItemButton>
 						</ListItem>
 						<ListItem key="Bubble Sort" disablePadding>
-							<ListItemButton component={Link} to="/algorithm-visualizer/bubble-sort">
+							<ListItemButton component={Link} to="/bubble-sort">
 								<ListItemIcon>{<InboxIcon />}</ListItemIcon>
 								<ListItemText primary="Bubble Sort" />
 							</ListItemButton>
@@ -84,12 +84,12 @@ export default function ClippedDrawer() {
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
 				<Routes>
-					<Route path="/algorithm-visualizer/" element={<Dashboard />} />
-					<Route path="/algorithm-visualizer/selection-sort" element={<SelectionSort />} />
-					<Route path="/algorithm-visualizer/merge-sort" element={<MergeSort />} />
-					<Route path="/algorithm-visualizer/heap-sort" element={<HeapSort />} />
-					<Route path="/algorithm-visualizer/bubble-sort" element={<BubbleSort />} />
-					<Route path="/algorithm-visualizer/*" element={<h1>404 not found</h1>} />
+					<Route path="/" element={<Dashboard />} />
+					<Route path="/selection-sort" element={<SelectionSort />} />
+					<Route path="/merge-sort" element={<MergeSort />} />
+					<Route path="/heap-sort" element={<HeapSort />} />
+					<Route path="/bubble-sort" element={<BubbleSort />} />
+					<Route path="/*" element={<h1>404 not found</h1>} />
 				</Routes>
 			</Box>
 		</Box>
