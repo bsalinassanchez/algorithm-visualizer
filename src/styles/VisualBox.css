@@ -1,0 +1,15 @@
+.visual-box {
+	border: 3px solid black;
+	min-height: 600px;
+}
+
+.visual-box .bar {
+	width: 3px;
+	background-color: aquamarine;
+	display: inline-block;
+	margin: 0 1px;
+}
+
+.dev-notes p {
+	margin-top: 20px;
+}
