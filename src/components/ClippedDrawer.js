@@ -84,7 +84,7 @@ export default function ClippedDrawer() {
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
 				<Routes>
-					<Route path="/" element={<Dashboard />} />
+					<Route path="/algorithm-visualizer" element={<Dashboard />} />
 					<Route path="/selection-sort" element={<SelectionSort />} />
 					<Route path="/merge-sort" element={<MergeSort />} />
 					<Route path="/heap-sort" element={<HeapSort />} />
