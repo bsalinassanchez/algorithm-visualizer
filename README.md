@@ -9,6 +9,7 @@ This sorting algorithm visualizer is meant to be used as a supplement to learnin
 The user is able to create a custom-sized array with random values, select one of several sorting algorithms, and change the speed of the sorting visualization.
 
 ### Screenshots
+![demo-screenshot](./visualizer-screenshot.png)
 
 ### Technologies
 
