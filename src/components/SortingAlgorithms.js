@@ -115,25 +115,44 @@ function swap(array, min_idx, root, animations) {
 }
 
 function selectionSort(array, size, animations) {
+	/*
+	for (let i = 0; i < size - 1; i++) {
+		let anchor = i;
+		let min = i;
+		for (let j = i + 1; i < size; j++) {
+			if (array[j] < array[min]) min = j;
+		}
+		//swap
+		if (anchor !== min) {
+			let temp = array[min];
+			array[min] = array[anchor];
+			array[anchor] = temp;
+		}
+	}
+	*/
+
 	// One by one move boundary of unsorted subarray
 	for (let i = 0; i < size - 1; i++) {
 		// Find the minimum element in unsorted array
 		let min_idx = i;
 		let old_min_idx = min_idx;
-		animations.push([min_idx, min_idx, true, SECONDARY_COLOR]);
+		//animations.push([min_idx, min_idx, true, "orange"]);
 		for (let j = i + 1; j < size; j++) {
+			//animations.push([j, j, true, SECONDARY_COLOR]);
 			if (array[j] < array[min_idx]) {
-				animations.push([min_idx, min_idx, true, PRIMARY_COLOR]);
+				//animations.push([j, j, true, "yellow"]);
 				min_idx = j;
-				animations.push([min_idx, min_idx, true, SECONDARY_COLOR]);
-				animations.push([min_idx, min_idx, true, PRIMARY_COLOR]);
+				//animations.push([min_idx, min_idx, true, SECONDARY_COLOR]);
+				//animations.push([min_idx, min_idx, true, PRIMARY_COLOR]);
 			}
 		}
-		animations.push([old_min_idx, old_min_idx, true, PRIMARY_COLOR]);
+		//animations.push([old_min_idx, old_min_idx, true, PRIMARY_COLOR]);
 
 		// Swap the found minimum element with the first element
 		swap(array, min_idx, i, animations);
 	}
+
+	//finalize last element
 	animations.push([array.length - 1, array.length - 1, true, "DodgerBlue"]);
 }
 

@@ -20,12 +20,12 @@ const PRIMARY_COLOR = "aquamarine";
 
 export default function SelectionSort() {
 	const [array, setArray] = useState([]);
-	const [arraySize, setArraySize] = useState(200);
+	const [arraySize, setArraySize] = useState(25);
 	const [animationSpeed, setAnimationSpeed] = useState(5);
 
 	useEffect(() => {
 		const array = [];
-		for (let i = 0; i < 200; i++) {
+		for (let i = 0; i < 25; i++) {
 			array.push(randomIntFromIntervals(5, 550));
 		}
 		setArray(array);
@@ -129,7 +129,7 @@ export default function SelectionSort() {
 						value={animationSpeed}
 						onChange={handleSpeed}
 					>
-						<FormControlLabel value={20} control={<Radio />} label="slow" />
+						<FormControlLabel value={200} control={<Radio />} label="slow" />
 						<FormControlLabel value={5} control={<Radio />} label="normal" />
 						<FormControlLabel value={1} control={<Radio />} label="fast" />
 					</RadioGroup>

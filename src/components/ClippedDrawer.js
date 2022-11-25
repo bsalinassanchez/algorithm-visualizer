@@ -13,12 +13,16 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { HashRouter, Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
-import SelectionSort from "../pages/SelectionSort";
-import MergeSort from "../pages/MergeSort";
-import HeapSort from "../pages/HeapSort";
-import BubbleSort from "../pages/BubbleSort";
+import SortAlgorithm from "./SortAlgorithm";
+import {
+	getSelectionSortAnimations,
+	getBubbleSortAnimations,
+	getHeapSortAnimations,
+	getMergeSortAnimations,
+} from "../components/SortingAlgorithms";
+
 const drawerWidth = 240;
 
 export default function ClippedDrawer() {
@@ -85,10 +89,22 @@ export default function ClippedDrawer() {
 				<Toolbar />
 				<Routes>
 					<Route path="/" element={<Dashboard />} />
-					<Route path="/selection-sort" element={<SelectionSort />} />
-					<Route path="/merge-sort" element={<MergeSort />} />
-					<Route path="/heap-sort" element={<HeapSort />} />
-					<Route path="/bubble-sort" element={<BubbleSort />} />
+					<Route
+						path="/selection-sort"
+						element={<SortAlgorithm algorithm={getSelectionSortAnimations} algo="Selection Sort" />}
+					/>
+					<Route
+						path="/merge-sort"
+						element={<SortAlgorithm algorithm={getMergeSortAnimations} algo="Merge Sort" />}
+					/>
+					<Route
+						path="/heap-sort"
+						element={<SortAlgorithm algorithm={getHeapSortAnimations} algo="Heap Sort" />}
+					/>
+					<Route
+						path="/bubble-sort"
+						element={<SortAlgorithm algorithm={getBubbleSortAnimations} algo="Bubble Sort" />}
+					/>
 					<Route path="/*" element={<h1>404 not found</h1>} />
 				</Routes>
 			</Box>

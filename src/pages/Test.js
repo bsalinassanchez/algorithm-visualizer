@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getMergeSortAnimations } from "../components/SortingAlgorithms";
+import { getSelectionSortAnimations } from "../components/SortingAlgorithms";
 import { Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -13,21 +13,22 @@ import "../styles/Gui.css";
 // This is the main color of the array bars.
 const PRIMARY_COLOR = "aquamarine";
 
-// This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = "red";
-
-export default function MergeSort() {
+export default function Test() {
 	const [array, setArray] = useState([]);
-	const [arraySize, setArraySize] = useState(25);
+	const [arraySize, setArraySize] = useState(20);
 	const [animationSpeed, setAnimationSpeed] = useState(5);
 
 	useEffect(() => {
 		const array = [];
-		for (let i = 0; i < 25; i++) {
+		for (let i = 0; i < 20; i++) {
 			array.push(randomIntFromIntervals(5, 550));
 		}
 		setArray(array);
 	}, []);
+
+	function handleSpeed(event) {
+		setAnimationSpeed(event.target.value);
+	}
 
 	function resetArray() {
 		const array = [];
@@ -39,9 +40,6 @@ export default function MergeSort() {
 		for (let i = 0; i < arraySize; i++) {
 			bars[i].style.backgroundColor = PRIMARY_COLOR;
 		}
-	}
-	function handleSpeed(event) {
-		setAnimationSpeed(event.target.value);
 	}
 
 	async function resetArraySize(size) {
@@ -56,21 +54,26 @@ export default function MergeSort() {
 		}
 	}
 
-	function mergeSort() {
-		const animations = getMergeSortAnimations(array);
+	function selectionSort() {
+		const animations = getSelectionSortAnimations(array);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("bar");
-			const isColorChange = i % 3 !== 2;
+			const isColorChange = animations[i][2];
 			if (isColorChange) {
-				const [barOneIdx, barTwoIdx] = animations[i];
-				const barOneStyle = arrayBars[barOneIdx].style;
+				//const [barOneIdx, barTwoIdx] = animations[i];
+				const barOneIdx = animations[i][0];
+				const barTwoIdx = animations[i][1];
+				const barOneStyle = arrayBars[barOneIdx].style; //ERROR?
 				const barTwoStyle = arrayBars[barTwoIdx].style;
-				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+
+				//const color = animations[i][3] ? PRIMARY_COLOR : SECONDARY_COLOR;
+				const color = animations[i][3];
 				setTimeout(() => {
 					barOneStyle.backgroundColor = color;
 					barTwoStyle.backgroundColor = color;
 				}, i * animationSpeed);
 			} else {
+				//ERROR?
 				setTimeout(() => {
 					const [barOneIdx, newHeight] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
@@ -83,12 +86,33 @@ export default function MergeSort() {
 	return (
 		<div className="selection-sort">
 			<div className="top">
-				<h3>Merge Sort</h3>
+				<h3>Selection Sort</h3>
 			</div>
-			<div className="visual-box">
-				{array.map((value, index) => {
+			<div className="visual-test">
+				{
+					array.map((value, index) => {
+						return <div className="bartest" key={index} style={{ height: `${value}px` }}></div>;
+					})
+					/*array.map((value, index) => {
 					return <div className="bar" key={index} style={{ height: `${value}px` }}></div>;
-				})}
+				})
+                
+                
+.visual-box .bar {
+	width: 10px;
+	background-color: aquamarine;
+	display: inline-block;
+	margin: 0 1px;
+}
+
+.dev-notes p {
+	margin-top: 20px;
+}
+
+                
+                */
+					//
+				}
 			</div>
 			<div className="gui">
 				<TextField
@@ -105,10 +129,11 @@ export default function MergeSort() {
 						}
 					}}
 				/>
+
 				<Button variant="contained" onClick={resetArray}>
 					Reset Array
 				</Button>
-				<Button variant="contained" onClick={mergeSort}>
+				<Button variant="contained" onClick={selectionSort}>
 					Sort Array
 				</Button>
 				<FormControl>

@@ -1,15 +1,37 @@
-.visual-box {
+.visual-bo {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(100, 1fr);
+	column-gap: 5px;
 	border: 3px solid black;
 	min-height: 600px;
 }
 
-.visual-box .bar {
-	width: 3px;
+.visual-box [class*="bar"] {
+	grid-row-start: 1;
+	grid-row-end: 101;
+	border-radius: 5px 5px 0px 0px;
 	background-color: aquamarine;
-	display: inline-block;
-	margin: 0 1px;
 }
 
 .dev-notes p {
 	margin-top: 20px;
+}
+
+.visual-box {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	min-height: 600px;
+	width: 80vw;
+	padding-bottom: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.visual-box .bar {
+	height: 200px;
+	width: 20px;
+	background-color: aquamarine;
+	border-radius: 5px;
+	margin-left: 1px;
 }

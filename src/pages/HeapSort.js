@@ -20,12 +20,12 @@ const PRIMARY_COLOR = "aquamarine";
 
 export default function HeapSort() {
 	const [array, setArray] = useState([]);
-	const [arraySize, setArraySize] = useState(200);
+	const [arraySize, setArraySize] = useState(25);
 	const [animationSpeed, setAnimationSpeed] = useState(5);
 
 	useEffect(() => {
 		const array = [];
-		for (let i = 0; i < 200; i++) {
+		for (let i = 0; i < 25; i++) {
 			array.push(randomIntFromIntervals(5, 550));
 		}
 		setArray(array);

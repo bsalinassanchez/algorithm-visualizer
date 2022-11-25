@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getMergeSortAnimations } from "../components/SortingAlgorithms";
 import { Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -10,13 +9,10 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import "../styles/Gui.css";
 
-// This is the main color of the array bars.
+// This is the main color of the array bars (indicates unsorted)
 const PRIMARY_COLOR = "aquamarine";
 
-// This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = "red";
-
-export default function MergeSort() {
+export default function SortAlgorithm({ algorithm, algo }) {
 	const [array, setArray] = useState([]);
 	const [arraySize, setArraySize] = useState(25);
 	const [animationSpeed, setAnimationSpeed] = useState(5);
@@ -27,8 +23,15 @@ export default function MergeSort() {
 			array.push(randomIntFromIntervals(5, 550));
 		}
 		setArray(array);
+		//setArraySize(200);
+		//setAnimationSpeed(5);
 	}, []);
 
+	function handleSpeed(event) {
+		setAnimationSpeed(event.target.value);
+	}
+
+	//creates a new array with random integers with current array size
 	function resetArray() {
 		const array = [];
 		for (let i = 0; i < arraySize; i++) {
@@ -40,10 +43,8 @@ export default function MergeSort() {
 			bars[i].style.backgroundColor = PRIMARY_COLOR;
 		}
 	}
-	function handleSpeed(event) {
-		setAnimationSpeed(event.target.value);
-	}
 
+	//creates a new array with random integers with new array size
 	async function resetArraySize(size) {
 		const array = [];
 		for (let i = 0; i < size; i++) {
@@ -56,21 +57,26 @@ export default function MergeSort() {
 		}
 	}
 
-	function mergeSort() {
-		const animations = getMergeSortAnimations(array);
+	function selectionSort() {
+		const animations = algorithm(array);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("bar");
-			const isColorChange = i % 3 !== 2;
+			const isColorChange = animations[i][2];
 			if (isColorChange) {
-				const [barOneIdx, barTwoIdx] = animations[i];
-				const barOneStyle = arrayBars[barOneIdx].style;
+				//const [barOneIdx, barTwoIdx] = animations[i];
+				const barOneIdx = animations[i][0];
+				const barTwoIdx = animations[i][1];
+				const barOneStyle = arrayBars[barOneIdx].style; //ERROR?
 				const barTwoStyle = arrayBars[barTwoIdx].style;
-				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+
+				//const color = animations[i][3] ? PRIMARY_COLOR : SECONDARY_COLOR;
+				const color = animations[i][3];
 				setTimeout(() => {
 					barOneStyle.backgroundColor = color;
 					barTwoStyle.backgroundColor = color;
 				}, i * animationSpeed);
 			} else {
+				//ERROR?
 				setTimeout(() => {
 					const [barOneIdx, newHeight] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
@@ -81,9 +87,9 @@ export default function MergeSort() {
 	}
 
 	return (
-		<div className="selection-sort">
+		<div className="algorithm">
 			<div className="top">
-				<h3>Merge Sort</h3>
+				<h3>{algo}</h3>
 			</div>
 			<div className="visual-box">
 				{array.map((value, index) => {
@@ -100,15 +106,18 @@ export default function MergeSort() {
 					}}
 					onKeyPress={(event) => {
 						if (event.key === "Enter") {
-							setArraySize(event.target.value);
-							resetArraySize(event.target.value);
+							if (event.target.value > 0) {
+								setArraySize(event.target.value);
+								resetArraySize(event.target.value);
+							} else alert("array size cannot be less than or equal to 0!");
 						}
 					}}
 				/>
+
 				<Button variant="contained" onClick={resetArray}>
 					Reset Array
 				</Button>
-				<Button variant="contained" onClick={mergeSort}>
+				<Button variant="contained" onClick={selectionSort}>
 					Sort Array
 				</Button>
 				<FormControl>
@@ -120,9 +129,9 @@ export default function MergeSort() {
 						value={animationSpeed}
 						onChange={handleSpeed}
 					>
-						<FormControlLabel value={20} control={<Radio />} label="slow" />
-						<FormControlLabel value={5} control={<Radio />} label="normal" />
-						<FormControlLabel value={1} control={<Radio />} label="fast" />
+						<FormControlLabel value={50} control={<Radio />} label="slow" />
+						<FormControlLabel value={15} control={<Radio />} label="normal" />
+						<FormControlLabel value={5} control={<Radio />} label="fast" />
 					</RadioGroup>
 				</FormControl>
 			</div>
