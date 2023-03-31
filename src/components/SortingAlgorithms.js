@@ -286,3 +286,103 @@ function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animati
 		mainArray[k++] = auxiliaryArray[j++];
 	}
 }
+
+//if graph[i][j] == 3 then that means theres a barrier in place
+export function bfsPath(graph, start, target, size) {
+	if (target === undefined) {
+		return [];
+	}
+	/**
+	 * false = not visited
+	 * true = visited
+	 */
+
+	const visited = Array(size)
+		.fill()
+		.map((_, indexH) =>
+			Array(size)
+				.fill()
+				.map((_, indexW) => false)
+		);
+	//create queue for bfs
+	const queue = [];
+
+	const path = [];
+
+	let prev = null;
+
+	//mark start node as visited and enqueue it
+	visited[start[0]][start[1]] = true;
+	queue.push([start[0], start[1], prev]);
+	let found = false;
+	while (queue.length > 0) {
+		const tile = queue[0]; //tile == [0,0,null]
+		path.push(tile); //prev = null
+		//check if itle is the target
+		if (tile[0] === target[0] && tile[1] === target[1]) {
+			found = true;
+			break;
+		}
+		prev = [tile[0], tile[1]]; //prev = [0,0]
+		queue.shift();
+
+		if (
+			tile[0] - 1 >= 0 &&
+			visited[tile[0] - 1][tile[1]] === false &&
+			graph[tile[0] - 1][tile[1]] !== 3
+		) {
+			if ([tile[0] - 1, tile[1]] === target) return path;
+			visited[tile[0] - 1][tile[1]] = true;
+			queue.push([tile[0] - 1, tile[1], prev]);
+		}
+		if (
+			tile[1] - 1 >= 0 &&
+			visited[tile[0]][tile[1] - 1] === false &&
+			graph[tile[0]][tile[1] - 1] !== 3
+		) {
+			if ([tile[0], tile[1] - 1] === target) return path;
+			visited[tile[0]][tile[1] - 1] = true;
+			queue.push([tile[0], tile[1] - 1, prev]);
+		}
+		if (
+			tile[0] + 1 < size &&
+			visited[tile[0] + 1][tile[1]] === false &&
+			graph[tile[0] + 1][tile[1]] !== 3
+		) {
+			if ([tile[0] + 1, tile[1]] === target) return path;
+			visited[tile[0] + 1][tile[1]] = true;
+			queue.push([tile[0] + 1, tile[1], prev]);
+		}
+		if (
+			tile[1] + 1 < size &&
+			visited[tile[0]][tile[1] + 1] === false &&
+			graph[tile[0]][tile[1] + 1] !== 3
+		) {
+			if ([tile[0], tile[1] + 1] === target) return path;
+			visited[tile[0]][tile[1] + 1] = true;
+			queue.push([tile[0], tile[1] + 1, prev]);
+		}
+	}
+	//return path;
+	return bfsHelper(path, found);
+}
+
+//pop()
+function bfsHelper(path, found) {
+	if (found === false) return [];
+	const newPath = [];
+	//always push last element
+	let unit = path[path.length - 1];
+	let prev = unit[2];
+	newPath.unshift(unit[0] + "-" + unit[1]);
+	for (let i = path.length - 1; i >= 0; i--) {
+		if (prev === null) break;
+		if (prev[0] === path[i][0] && prev[1] === path[i][1]) {
+			newPath.unshift(path[i][0] + "-" + path[i][1]);
+			prev = path[i][2];
+		}
+	}
+	//traverse path backwards, then reverse
+
+	return newPath;
+}

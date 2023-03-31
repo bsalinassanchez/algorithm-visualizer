@@ -16,6 +16,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 import SortAlgorithm from "./SortAlgorithm";
+import BFS from "./BFS";
+import BFS2 from "./BFS2";
 import {
 	getSelectionSortAnimations,
 	getBubbleSortAnimations,
@@ -82,6 +84,12 @@ export default function ClippedDrawer() {
 								<ListItemText primary="Bubble Sort" />
 							</ListItemButton>
 						</ListItem>
+						<ListItem key="BFS" disablePadding>
+							<ListItemButton component={Link} to="/bfs">
+								<ListItemIcon>{<InboxIcon />}</ListItemIcon>
+								<ListItemText primary="BFS" />
+							</ListItemButton>
+						</ListItem>
 					</List>
 				</Box>
 			</Drawer>
@@ -105,6 +113,7 @@ export default function ClippedDrawer() {
 						path="/bubble-sort"
 						element={<SortAlgorithm algorithm={getBubbleSortAnimations} algo="Bubble Sort" />}
 					/>
+					<Route path="/bfs" element={<BFS />} />
 					<Route path="/*" element={<h1>404 not found</h1>} />
 				</Routes>
 			</Box>
